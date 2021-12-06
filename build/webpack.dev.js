@@ -5,7 +5,6 @@ const env = require('../config/dev.env')
 const webpack = require('webpack')
 
 module.exports = merge(common, {
-  mode: "development",
   devServer: {
     hot: true, //热更新
     open: true, //编译完自动打开浏览器

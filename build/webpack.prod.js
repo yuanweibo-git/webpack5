@@ -1,12 +1,14 @@
 const { merge } = require('webpack-merge')
 const common = require("./webpack.common.js");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const CompressionPlugin = require('compression-webpack-plugin')
+const CssMinimizerPlugin  = require('css-minimizer-webpack-plugin')
 
 module.exports = merge(common, {
-  mode: "production",
-
   plugins: [
-    // new BundleAnalyzerPlugin() // 打包后分析代码区块大小
+    // new BundleAnalyzerPlugin() // 打包后分析代码区块大小\
+    new CompressionPlugin(), // 开启gzip压缩
+    new CssMinimizerPlugin() // 优化、压缩css
   ],
 
   module: {
@@ -28,12 +30,12 @@ module.exports = merge(common, {
       chunks: "all",
       name: "vendor",
       cacheGroups: {
-        "echarts.vendor": {
-          name: "echarts.vendor",
-          priority: 40,
-          test: /[\\/]node_modules[\\/](echarts|zrender)[\\/]/,
-          chunks: "all",
-        },
+        // "echarts.vendor": {
+        //   name: "echarts.vendor",
+        //   priority: 40,
+        //   test: /[\\/]node_modules[\\/](echarts|zrender)[\\/]/,
+        //   chunks: "all",
+        // },
         lodash: {
           name: "lodash",
           chunks: "async",
